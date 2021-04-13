@@ -1,0 +1,10 @@
+*.o
+tmp*
+a.out
+9cc
+
+.cache
+.vscode-server
+.ssh
+.gitconfig
+.bash_history
