@@ -93,15 +93,14 @@ int expect_number()
 
 // 次のトークンが識別子のときには、トークンを1つ読み進めて
 // そのトークンを返す。それ以外の場合にはNULLを返す。
-Token *consume_ident() {
-  if (token->kind != TK_IDENT)
-    return NULL;
-  Token *tok = token;
-  token = token->next;
-  return tok;
+Token *consume_ident()
+{
+    if (token->kind != TK_IDENT)
+        return NULL;
+    Token *tok = token;
+    token = token->next;
+    return tok;
 }
-
-Node *code[100];
 
 Node *assign()
 {
@@ -231,7 +230,7 @@ Node *unary()
     if (consume("+"))
         return unary();
     if (consume("-"))
-        return new_binary(ND_SUB, new_num(0), unary());
+        return new_binary(ND_SUB, new_node_num(0), unary());
     return primary();
 }
 
@@ -277,9 +276,15 @@ Token *tokenize()
         }
 
         // Single-letter punctuator
-        if (strchr("+-*/()<>", *p))
+        if (strchr("+-*/()<>=;", *p))
         {
             cur = new_token(TK_RESERVED, cur, p++, 1);
+            continue;
+        }
+
+        if ('a' <= *p && *p <= 'z')
+        {
+            cur = new_token(TK_IDENT, cur, p++, 1);
             continue;
         }
 
@@ -290,12 +295,6 @@ Token *tokenize()
             char *q = p;
             cur->val = strtol(p, &p, 10);
             cur->len = p - q;
-            continue;
-        }
-
-        if ('a' <= *p && *p <= 'z')
-        {
-            cur = new_token(TK_IDENT, cur, p++, 1);
             continue;
         }
 

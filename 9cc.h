@@ -52,6 +52,7 @@ struct Token
 
 // 現在着目しているトークン
 extern Token *token;
+extern Node *code[100];
 
 Node *assign();
 Node *expr();
@@ -66,3 +67,4 @@ Node *primary();
 Token *tokenize();
 void error(char *fmt, ...);
 void gen(Node *node);
+void program();
