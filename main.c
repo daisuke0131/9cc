@@ -8,6 +8,7 @@
 
 Node *code[100];
 Token *token;
+char *user_input;
 
 int main(int argc, char **argv)
 {

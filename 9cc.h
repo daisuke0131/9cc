@@ -54,13 +54,11 @@ struct Token
     int len;        // Token length
 };
 
-bool at_eof();
-
 // 現在着目しているトークン
 extern Token *token;
 extern Node *code[100];
 // Input program
-char *user_input;
+extern char *user_input;
 
 bool consume(char *op);
 Token *consume_ident();
@@ -68,6 +66,7 @@ void expect(char *op);
 int expect_number();
 void error(char *fmt, ...);
 Token *tokenize();
+bool at_eof();
 
 Node *new_node(NodeKind kind, Node *lhs, Node *rhs);
 Node *new_binary(NodeKind kind, Node *lhs, Node *rhs);
