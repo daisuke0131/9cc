@@ -1,5 +1,9 @@
-// Input program
-char *user_input;
+#include <ctype.h>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // 抽象構文木のノードの種類
 typedef enum
@@ -52,8 +56,22 @@ struct Token
 
 // 現在着目しているトークン
 extern Token *token;
-extern Node *code[100];
+extern Node *code[];
+// Input program
+extern char *user_input;
 
+bool consume(char *op);
+Token *consume_ident();
+void expect(char *op);
+int expect_number();
+void error(char *fmt, ...);
+Token *tokenize();
+bool at_eof();
+
+Node *new_node(NodeKind kind, Node *lhs, Node *rhs);
+Node *new_binary(NodeKind kind, Node *lhs, Node *rhs);
+Node *new_node_num(int val);
+void program();
 Node *assign();
 Node *expr();
 Node *stmt();
@@ -63,8 +81,4 @@ Node *add();
 Node *mul();
 Node *unary();
 Node *primary();
-
-Token *tokenize();
-void error(char *fmt, ...);
 void gen(Node *node);
-void program();
