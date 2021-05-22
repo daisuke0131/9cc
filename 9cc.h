@@ -56,7 +56,7 @@ struct Token
 
 // 現在着目しているトークン
 extern Token *token;
-extern Node *code[100];
+extern Node *code[];
 // Input program
 extern char *user_input;
 
